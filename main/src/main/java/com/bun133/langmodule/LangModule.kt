@@ -6,6 +6,11 @@ import com.github.bun133.flyframe.ModuleEvent
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import org.bukkit.Effect
+import org.bukkit.Material
+import org.bukkit.entity.EntityType
+import org.bukkit.entity.LivingEntity
+import org.bukkit.potion.PotionEffectType
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
@@ -39,17 +44,17 @@ class LangModule(val plugin: LangModulePlugin) : Module {
     }
 
     override fun onModuleEnable() {
-        try {
-            println("[LangModule]")
-            println(
-                LangFile.JA_JP.get(plugin,"addServer.add")
-            )
-            println(
-                LangFile.EN_US.get(plugin,"addServer.add")
-            )
-        }catch (e:Exception){
-            println(e.message)
-        }
+//        try {
+//            println("[LangModule]")
+//            println(
+//                LangFile.JA_JP.get(plugin,"addServer.add")
+//            )
+//            println(
+//                LangFile.EN_US.get(plugin,"addServer.add")
+//            )
+//        }catch (e:Exception){
+//            println(e.message)
+//        }
     }
 
     fun getLangList(): Array<LangFile> {
@@ -72,5 +77,32 @@ enum class LangFile(val friendlyName: String, val path: String) {
         val listType: Type = object : TypeToken<HashMap<String?, String?>?>() {}.type
         val gson = Gson()
         json = gson.fromJson(JsonReader(InputStreamReader(plugin.getResource(path)!!,"UTF8")),listType)
+    }
+
+    /**
+     * 大半はいける
+     */
+    fun get(plugin:LangModulePlugin,material:Material): String? {
+        var id = ""
+        if(material.isBlock || material.isAir){
+            id += "block.minecraft.${material.name.toLowerCase()}"
+        }else{
+            id += "item.minecraft.${material.name.toLowerCase()}"
+        }
+        return get(plugin,material.name)
+    }
+
+    /**
+     * これ怪しい
+     */
+    fun get(plugin: LangModulePlugin,effect: PotionEffectType): String? {
+        return get(plugin,"effect.minecraft."+effect.name.toLowerCase())
+    }
+
+    /**
+     * これはたぶん行ける
+     */
+    fun get(plugin:LangModulePlugin,entity:EntityType): String? {
+        return get(plugin,"entity.minecraft."+entity.getName())
     }
 }
