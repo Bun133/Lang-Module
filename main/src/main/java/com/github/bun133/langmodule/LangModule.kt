@@ -1,18 +1,15 @@
-package com.bun133.langmodule
+package com.github.bun133.langmodule
 
+import com.github.bun133.flyframe.FlyCommandProxy
 import com.github.bun133.flyframe.FlyModulePlugin
 import com.github.bun133.flyframe.Module
 import com.github.bun133.flyframe.ModuleEvent
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
-import org.bukkit.Effect
 import org.bukkit.Material
 import org.bukkit.entity.EntityType
-import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffectType
-import java.io.File
-import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.lang.reflect.Type
 import java.util.HashMap
@@ -23,6 +20,8 @@ class LangModulePlugin : FlyModulePlugin() {
     override fun onEnable() {
         // Plugin startup logic
     }
+
+    override fun getCommands(): MutableList<FlyCommandProxy> = mutableListOf()
 
     override fun getModule(): Module {
         return module

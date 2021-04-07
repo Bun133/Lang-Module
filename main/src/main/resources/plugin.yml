@@ -1,6 +1,6 @@
 name: Lang Module
 version: ${project.version}
-main: com.bun133.langmodule.LangModulePlugin
+main: com.github.bun133.langmodule.LangModulePlugin
 api-version: 1.15
 authors: [ Bun133 ]
 website: https://twitter.com/bun133_
